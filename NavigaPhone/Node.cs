@@ -8,7 +8,19 @@ namespace NavigaPhone
     {
         protected List<Node> Children;
 
-        public abstract void PrettyPrint();
+        public abstract void PrettyPrint(int nbTabs = 0);
+
+        public string PrintTabs(int nb = 0)
+        {
+            var tabs = "";
+            
+            for (var i = 0; i < nb; i++)
+            {
+                tabs += "    ";
+            }
+
+            return tabs;
+        }
     }
 
     public class Text : Node
@@ -21,9 +33,9 @@ namespace NavigaPhone
             Children = new List<Node>();
         }
 
-        public override void PrettyPrint()
+        public override void PrettyPrint(int nbTabs = 0)
         {
-            Console.Write(_value + "\n");
+            Console.Write(PrintTabs(nbTabs) + _value + "\n");
         }
     }
 
@@ -39,15 +51,16 @@ namespace NavigaPhone
             Children = children;
         }
 
-        public override void PrettyPrint()
+        public override void PrettyPrint(int nbTabs = 0)
         {
-            Console.Write("<" + _tagName + PrintAttributes() + ">\n");
+            Console.Write(PrintTabs(nbTabs) + "<" + _tagName + PrintAttributes() + ">" + "\n");
 
             foreach(var node in Children)
             {
-                node.PrettyPrint();
+                node.PrettyPrint(nbTabs + 1);
             }
-            Console.Write("</" + _tagName + ">\n");
+
+            Console.Write(PrintTabs(nbTabs) + "</" + _tagName + ">" + "\n");
         }
 
         private string PrintAttributes()
@@ -66,9 +79,9 @@ namespace NavigaPhone
             Children = new List<Node>();
         }
 
-        public override void PrettyPrint()
+        public override void PrettyPrint(int nbTabs = 0)
         {
-            Console.Write("<!-- " + _value + " -->\n");
+            Console.Write(PrintTabs(nbTabs) + "<!-- " + _value + " -->" + "\n");
         }
     }
 }
