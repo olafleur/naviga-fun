@@ -41,7 +41,8 @@ namespace NavigaPhone
 
         public override void PrettyPrint()
         {
-            Console.Write("<"+_tagName+" "+ PrintAttributes() +">\n");
+            Console.Write("<" + _tagName + PrintAttributes() + ">\n");
+
             foreach(var node in Children)
             {
                 node.PrettyPrint();
@@ -51,7 +52,23 @@ namespace NavigaPhone
 
         private string PrintAttributes()
         {
-            return _attributes.Aggregate("", (current, pair) => current + (pair.Key + " = \"" + pair.Value + "\" "));
+            return _attributes.Aggregate("", (current, pair) => current + (" " + pair.Key + " = \"" + pair.Value + "\""));
+        }
+    }
+
+    public class Comment : Node
+    {
+        readonly string _value;
+
+        public Comment(string data)
+        {
+            _value = data;
+            Children = new List<Node>();
+        }
+
+        public override void PrettyPrint()
+        {
+            Console.Write("<!-- " + _value + " -->\n");
         }
     }
 }

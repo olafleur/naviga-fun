@@ -5,18 +5,17 @@ namespace NavigaPhone
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var text = new Text("bonjour");
-            var properties = new Dictionary<string, string>();
-            var content = new List<Node>();
+            var blabla = new Text("blabla");
+            var comment = new Comment("tada");
 
-            properties.Add("class", "salut");
-            content.Add(text);
+            var elem = new ElementData("p", new Dictionary<string, string> {{"class", "salut"}}, new List<Node> {text});
+            var bold = new ElementData("b", new Dictionary<string, string>(), new List<Node> { blabla });
+            var root = new ElementData("html", new Dictionary<string, string>(), new List<Node> {bold, comment, elem});
 
-            var elem = new ElementData("p", properties, content);
-
-            elem.PrettyPrint();
+            root.PrettyPrint();
 
             Console.ReadLine();
         }
