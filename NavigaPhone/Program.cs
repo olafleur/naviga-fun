@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NavigaPhone
 {
@@ -10,6 +7,18 @@ namespace NavigaPhone
     {
         static void Main(string[] args)
         {
+            var text = new Text("bonjour");
+            var properties = new Dictionary<string, string>();
+            var content = new List<Node>();
+
+            properties.Add("class", "salut");
+            content.Add(text);
+
+            var elem = new ElementData("p", properties, content);
+
+            elem.PrettyPrint();
+
+            Console.ReadLine();
         }
     }
 }
